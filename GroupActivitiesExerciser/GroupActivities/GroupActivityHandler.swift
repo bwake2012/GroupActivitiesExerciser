@@ -18,6 +18,7 @@ protocol GroupActivityMessage: Codable {
 
 protocol GroupActivityHandlerDelegate: AnyObject {
 
+    func receivedSession()
     func didConnect()
     func didDisconnect(reason: Error)
     func participantsChanged(count: Int)
@@ -33,6 +34,8 @@ class GroupActivityHandler<GA: GroupActivity, GM: GroupActivityMessage>: NSObjec
 
         case noSession
         case attemptToJoinNilSession
+        case attemptToLeaveNilSession
+        case attemptToEndNilSession
         case attemptToUseNilMessenger
         case messageSendFail(Error)
         case messagePastSellByDate(GM)
@@ -44,12 +47,16 @@ class GroupActivityHandler<GA: GroupActivity, GM: GroupActivityMessage>: NSObjec
                 return "No Group Session."
             case .attemptToJoinNilSession:
                 return "Attempted to join a nonexistent session."
+            case .attemptToLeaveNilSession:
+                return "Attempted to leave a nonexistent session."
+            case .attemptToEndNilSession:
+                return "Attempted to end a nonexistent session."
             case .attemptToUseNilMessenger:
                 return "Attempted to send a message using a nonexistent messenger."
             case .messageSendFail(let error):
                 return "Activity message send failure: \(error.localizedDescription)"
             case .messagePastSellByDate(let message):
-                return "Message past its sell-by date: \(message.description)"
+                return "Received a message past its sell-by date: \(message.description)"
             }
         }
     }
@@ -114,13 +121,32 @@ class GroupActivityHandler<GA: GroupActivity, GM: GroupActivityMessage>: NSObjec
         return
     }
 
-    func reset() {
+    func leaveSession() {
 
-        latestTimestamp = Date.distantPast
+        guard nil != groupSession else {
+            report(error: .attemptToLeaveNilSession)
+            return
+        }
 
-        // tear down existing group session
-        groupSession?.leave()
-//        groupSession = nil
+        if 1 == groupSession?.activeParticipants.count {
+            groupSession?.end()
+        } else {
+            groupSession?.leave()
+        }
+        groupSession = nil
+
+        teardown()
+    }
+
+    func endSession() {
+
+        guard nil != groupSession else {
+            report(error: .attemptToEndNilSession)
+            return
+        }
+
+        groupSession?.end()
+        groupSession = nil
 
         teardown()
     }
@@ -131,6 +157,7 @@ class GroupActivityHandler<GA: GroupActivity, GM: GroupActivityMessage>: NSObjec
         tasks.forEach { $0.cancel() }
         tasks = []
         subscriptions = []
+        groupSession = nil
     }
 
     /// Wait for sessions to connect
@@ -140,6 +167,8 @@ class GroupActivityHandler<GA: GroupActivity, GM: GroupActivityMessage>: NSObjec
             Task {
 
                 for await session in GA.sessions() {
+
+                    delegate?.receivedSession()
 
                     configure(session)
                 }
@@ -159,8 +188,6 @@ class GroupActivityHandler<GA: GroupActivity, GM: GroupActivityMessage>: NSObjec
 
         groupSession.$activeParticipants
             .sink { activeParticipants in
-
-//                let newParticipants = activeParticipants.subtracting(groupSession.activeParticipants)
 
                 self.delegate?.participantsChanged(count: activeParticipants.count)
             }
@@ -192,6 +219,7 @@ class GroupActivityHandler<GA: GroupActivity, GM: GroupActivityMessage>: NSObjec
             case .joined:
                 self.delegate?.didConnect()
             case .invalidated(reason: let reason):
+                self.groupSession = nil
                 self.teardown()
                 self.delegate?.didDisconnect(reason: reason)
             @unknown default:

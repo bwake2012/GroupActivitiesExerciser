@@ -23,7 +23,8 @@ class ViewController: UIViewController {
     @IBOutlet var errorStatus: UILabel?
 
     @IBOutlet var beginWaitingButton: UIButton?
-    @IBOutlet var disconnectSessionButton: UIButton?
+    @IBOutlet var leaveSessionButton: UIButton?
+    @IBOutlet var endSessionButton: UIButton?
     @IBOutlet var activateButton: UIButton?
 
     @IBAction func touchUpWaitForSession(_ sender: UIButton?) {
@@ -37,19 +38,30 @@ class ViewController: UIViewController {
         self.updateStatus()
     }
 
-    @IBAction func disconnectSession(_ sender: UIButton?) {
+    @IBAction func touchUpJoinSession(_ sender: UIButton?) {
 
-        groupActivityHandler?.reset()
+        groupActivityHandler?.joinSession()
+
+        updateStatus()
+    }
+
+    @IBAction func touchUpLeaveSession(_ sender: UIButton?) {
+
+        groupActivityHandler?.leaveSession()
+
+        updateStatus()
+    }
+
+    @IBAction func touchUpEndSession(_ sender: UIButton?) {
+
+        groupActivityHandler?.endSession()
+
+        updateStatus()
     }
 
     @IBAction func touchUpActivate(_ sender: UIButton?) {
 
         groupActivityHandler?.activate()
-    }
-
-    @IBAction func touchUpJoinSession(_ sender: UIButton?) {
-
-        groupActivityHandler?.joinSession()
 
         updateStatus()
     }
@@ -80,13 +92,21 @@ class ViewController: UIViewController {
 
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.connectionStatus?.text = "Session: \(self.groupActivityHandler?.sessionStatus ?? "no session")"
+            self.connectionStatus?.text = "\(self.groupActivityHandler?.sessionStatus ?? "no session")"
             self.connectionCount?.text = "\(self.groupActivityHandler?.participantCount ?? 0)"
         }
     }
 }
 
 extension ViewController: FaceTimeMonitorDelegate, GroupActivityHandlerDelegate {
+
+    func receivedSession() {
+
+        DispatchQueue.main.async {
+
+            self.connectionStatus?.text = "Received"
+        }
+    }
 
     func canConnect(_ canConnect: Bool) {
 
@@ -105,7 +125,7 @@ extension ViewController: FaceTimeMonitorDelegate, GroupActivityHandlerDelegate 
 
         DispatchQueue.main.async {
 
-            self.connectionStatus?.text = "Session Disconnect: \(reason.localizedDescription)"
+            self.connectionStatus?.text = "Disconnect: \(reason.localizedDescription)"
         }
     }
 
@@ -121,7 +141,7 @@ extension ViewController: FaceTimeMonitorDelegate, GroupActivityHandlerDelegate 
 
         DispatchQueue.main.async {
 
-            self.connectionStatus?.text = "Session: \(status)"
+            self.connectionStatus?.text = "\(status)"
         }
     }
 

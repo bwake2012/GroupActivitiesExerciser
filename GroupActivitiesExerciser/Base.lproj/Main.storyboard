@@ -30,10 +30,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CLL-GC-Fsu" userLabel="Scroll Content">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="379.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="439.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="CjO-7P-T0Q">
-                                                        <rect key="frame" x="8" y="8" width="304" height="363.5"/>
+                                                        <rect key="frame" x="8" y="8" width="304" height="423.5"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="NDn-6v-LtS">
                                                                 <rect key="frame" x="0.0" y="0.0" width="304" height="67"/>
@@ -98,7 +98,7 @@
                                                                 </constraints>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mnA-jn-bDg">
-                                                                <rect key="frame" x="0.0" y="75" width="304" height="253.5"/>
+                                                                <rect key="frame" x="0.0" y="75" width="304" height="305.5"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="e5q-8W-Iqq">
                                                                         <rect key="frame" x="0.0" y="0.0" width="304" height="44"/>
@@ -132,15 +132,28 @@
                                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="geM-yg-YUb"/>
                                                                         </constraints>
                                                                         <state key="normal" title="Button"/>
-                                                                        <buttonConfiguration key="configuration" style="filled" title="Disconnect Session" cornerStyle="medium" titleAlignment="center">
+                                                                        <buttonConfiguration key="configuration" style="filled" title="Leave Session" cornerStyle="medium" titleAlignment="center">
                                                                             <fontDescription key="titleFontDescription" style="UICTFontTextStyleBody"/>
                                                                         </buttonConfiguration>
                                                                         <connections>
-                                                                            <action selector="disconnectSession:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wRo-pI-qiM"/>
+                                                                            <action selector="touchUpLeaveSession:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cFl-I8-R7i"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="b3G-H1-XbN">
+                                                                        <rect key="frame" x="0.0" y="156" width="304" height="44"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="v0j-mm-hzt"/>
+                                                                        </constraints>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="filled" title="End Session" cornerStyle="medium" titleAlignment="center">
+                                                                            <fontDescription key="titleFontDescription" style="UICTFontTextStyleBody"/>
+                                                                        </buttonConfiguration>
+                                                                        <connections>
+                                                                            <action selector="touchUpEndSession:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gna-8Q-Scp"/>
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="5fN-Ku-cBj">
-                                                                        <rect key="frame" x="0.0" y="156" width="304" height="44"/>
+                                                                        <rect key="frame" x="0.0" y="208" width="304" height="44"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="QKH-lV-DyY"/>
                                                                         </constraints>
@@ -153,7 +166,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DvA-D2-BAA">
-                                                                        <rect key="frame" x="0.0" y="208" width="304" height="45.5"/>
+                                                                        <rect key="frame" x="0.0" y="260" width="304" height="45.5"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Y7A-UE-Vut">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="148" height="45.5"/>
@@ -187,35 +200,47 @@
                                                                     </stackView>
                                                                 </subviews>
                                                             </stackView>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gKW-ac-OZe">
-                                                                <rect key="frame" x="0.0" y="336.5" width="304" height="27"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gKW-ac-OZe">
+                                                                <rect key="frame" x="0.0" y="388.5" width="304" height="35"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gd-LK-fY5">
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="K3K-X5-ykh">
                                                                         <rect key="frame" x="0.0" y="0.0" width="304" height="13.5"/>
-                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xS1-oq-nBy">
-                                                                        <rect key="frame" x="0.0" y="13.5" width="304" height="0.0"/>
-                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYg-ZB-ALl">
-                                                                        <rect key="frame" x="0.0" y="13.5" width="304" height="13.5"/>
-                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idR-CP-nm4">
-                                                                        <rect key="frame" x="0.0" y="27" width="304" height="0.0"/>
-                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
+                                                                        <subviews>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gd-LK-fY5">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="304" height="13.5"/>
+                                                                                <color key="backgroundColor" systemColor="labelColor"/>
+                                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                                                <color key="textColor" systemColor="systemBackgroundColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xS1-oq-nBy">
+                                                                                <rect key="frame" x="0.0" y="13.5" width="304" height="0.0"/>
+                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                                                <nil key="textColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9HL-5O-Mgj">
+                                                                        <rect key="frame" x="0.0" y="21.5" width="304" height="13.5"/>
+                                                                        <subviews>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYg-ZB-ALl">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="304" height="13.5"/>
+                                                                                <color key="backgroundColor" systemColor="labelColor"/>
+                                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                                                <color key="textColor" systemColor="systemBackgroundColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idR-CP-nm4">
+                                                                                <rect key="frame" x="0.0" y="13.5" width="304" height="0.0"/>
+                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                                                <nil key="textColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                    </stackView>
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
@@ -266,8 +291,9 @@
                         <outlet property="callStatus" destination="Eas-nR-m79" id="E8g-0e-vRR"/>
                         <outlet property="connectionCount" destination="2Rx-el-ql8" id="22Q-RS-Oud"/>
                         <outlet property="connectionStatus" destination="GwC-2z-BvR" id="y2d-7G-XlQ"/>
-                        <outlet property="disconnectSessionButton" destination="B3Q-wq-17F" id="Oj0-WL-x3C"/>
+                        <outlet property="endSessionButton" destination="b3G-H1-XbN" id="6dn-Bu-kze"/>
                         <outlet property="errorStatus" destination="idR-CP-nm4" id="b9p-gu-yhk"/>
+                        <outlet property="leaveSessionButton" destination="B3Q-wq-17F" id="Oj0-WL-x3C"/>
                         <outlet property="messageStatus" destination="xS1-oq-nBy" id="6Sf-LU-ggD"/>
                     </connections>
                 </viewController>
@@ -277,6 +303,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
